@@ -1,0 +1,63 @@
+---
+title: Pacific Giant Salamanders in an Old and Previously Clear Cut Forest Section
+  in Mack Creek
+author: "Claudia Flores and Annette Hilton"
+date: "11/20/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+### Introduction
+<center> ![](Images/mc.jpg){width=700px}</center>  
+**Figure 1:** Sampling Mack Creek Fish and Pacific Giant Salamander in Mack Creek, Oregon. Photo Credit: [HJ Andrews Experimental Forest LTER](https://andrewsforest.oregonstate.edu/gallery/forest-and-stream-research-pollinator-field-work-and-meadow-views-2015-2016) 
+
+Pacific Giant Salamander... 
+
+<center> ![](Images/pgs.png){width=500px}</center>  
+**Figure 2:** Pacific Giant Salamander. Photo Credit: [inPlume Design](http://www.inplumedesign.com/illustrations-2/omgw2e49cgh105hbkd525dd3xse1u7) 
+
+```{r}
+# Insert packages.
+
+library(tidyverse)
+library(janitor)
+library(here)
+library(colorspace)
+library(tidyr)
+library(nationalparkcolors)
+library(effsize)
+library(knitr)
+
+# Load in mack_creek_vertebrates.csv file and change header/column names to lowercase snakecase.
+
+mack_creek_vertebrates <- read_csv("mack_creek_vertebrates.csv") %>% 
+  clean_names()
+
+```
+
+### Data and Methods
+<center> ![](Images/map.jpg){width=700px}</center>  
+**Figure 3:** HJ Andrews Experimental Forest Map. The study site for the data, Mack Creek, is located to the east of Lookout Mountain. Photo Credit: [HJ Andrews Experimental Forest LTER](https://andrewsforest.oregonstate.edu/data/map) 
+
+### Results 
+##### 1. Annual Salamander Counts in Old Growth (OG) and Clear Cut (CC) sections in Mack Creek.
+```{r}
+# Count salamanders in old growth and clear cut sections in Mack Creek for every year.
+mc_vertebrates_counts <- mack_creek_vertebrates %>%
+  filter(species == "DITE") %>% 
+  count(year,section)
+
+# Make a graph to visualize the counts. 
+ggplot(data = mc_vertebrates_counts, aes(x = year, y = n, fill = section)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Annual Pacific Giant Salamander Counts in Mack Creek Sections", x = "Year", y = "Number of Pacific Giant Salamander", fill = "Area Section") +
+  theme_classic() +
+  scale_fill_manual(values = park_palette(n = 2, name = "Yosemite"), labels = c("Clear Cut", "Old Growth")) + 
+  theme(plot.title = element_text(hjust = 0.5), legend.position = c(.85,0.2)) + 
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 15, b = 0, l = 15))) +
+  theme(axis.title.x = element_text(margin = margin(t = 15, r = 0, b = 15, l = 0))) +
+  scale_x_continuous(limits = c(1992, 2018), breaks = seq(1993, 2017, by = 2))
