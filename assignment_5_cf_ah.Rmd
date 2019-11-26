@@ -2,7 +2,7 @@
 title: Pacific Giant Salamanders in an Old and Previously Clear Cut Forest Section
   in Mack Creek
 author: "Claudia Flores and Annette Hilton"
-date: "11/20/2019"
+date: "12/4/2019"
 output: html_document
 ---
 
@@ -40,14 +40,14 @@ mack_creek_vertebrates <- read_csv("mack_creek_vertebrates.csv") %>%
 ```
 
 ### Data and Methods  
-The data used in this report was collected by the H.J. Andrews Experimental Forest Long-Term Ecological Research (LTER) program. Data collection for Pacific Giant Salamanders began in 1993. The main location site is the Mack Creek, which is then divided into areas: clear cut and old growth. 500 year old coniferous forests are located in old growth areas. The area of clear cut and old growth sections are roughly 150 m reaches of stream. For more information on the sites or variables, see the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-and.4027.12). The statistical tests performed were a chi-squared test, ... The significance level used was 0.05. R Studio Version 1.2.5001 was used to perform all tests and to produce this report.
+The data used in this report was collected by the H.J. Andrews Experimental Forest Long-Term Ecological Research (LTER) program. Data collection for Pacific Giant Salamanders began in 1993. The main location site is Mack Creek, which is divided into two area sections: clear cut and old growth. 500 year old coniferous forests are located in old growth areas. The area of clear cut and old growth sections are roughly 150 m reaches of stream. For more information on the sites or variables, see the [metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-and.4027.12). The statistical tests performed were a chi-squared test, ... The significance level used was 0.05. R Studio Version 1.2.5001 was used to perform all tests and to produce this report.
   
 <center> ![](Images/map.jpg){width=700px}</center>  
 **Figure 3:** HJ Andrews Experimental Forest Map. The study site for the data, Mack Creek, is located to the east of Lookout Mountain. Photo Credit: [HJ Andrews Experimental Forest LTER](https://andrewsforest.oregonstate.edu/data/map) 
 
 ### Results 
 ##### 1. Annual Salamander Counts in Old Growth (OG) and Clear Cut (CC) sections in Mack Creek.  
-Annual Pacific Giant Salamander counts were compared in old growth and clear cut areas in Mack Creek. Up until 2015, clear cut area sections in Mack Creek typically showed a lower count than in old growth sections. In 1995, Pacific Giant Salamander count declined by more than half than what was recorded in the previous year in 1994. However, count more than doubled from 1999 to 2000. The highest and lowest counts in both areas were 380 and 129 in old growth areas and 368 and 63 in clear cut areas.
+Annual Pacific Giant Salamander counts were compared in old growth and clear cut areas in Mack Creek. Up until 2015, clear cut areas in Mack Creek typically showed a lower count than in old growth areas. In 1995, Pacific Giant Salamander count declined by more than half than what was recorded in the previous year in 1994. However, count more than doubled from 1999 to 2000. The highest and lowest counts in both areas were 380 and 129 in old growth areas and 368 and 63 in clear cut areas.
 
 <center>
 ```{r}
@@ -118,7 +118,7 @@ chi_counts <- mc_vertebrates_2017_table %>%
 chi_test <- chisq.test(chi_counts)
 
 ```
-Most Pacific Giant Salamander are found in the cascade channel for both area sections ($\sf{n_{cc}}$ = `r round(chi_test$observed[1],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[2],2)`). This is followed by the side ($\sf{n_{cc}}$ = `r round(chi_test$observed[5],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[6],2)`) and the pool channels ($\sf{n_{cc}}$ = `r round(chi_test$observed[3],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[4],2)`) (See Table 1). There is not evidence to suggest that there is a significant effect of area sections, old growth and clear cut, on channel classification, cascade, pool, and side channel ($\chi$^2^(`r chi_test$parameter`) = `r round(chi_test$statistic,4)`, *p* = `r round(chi_test$p.value, 2)`).
+Most Pacific Giant Salamander are found in the cascade channel for both area sections ($\sf{n_{cc}}$ = `r round(chi_test$observed[1],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[2],2)`). This is followed by the side channels ($\sf{n_{cc}}$ = `r round(chi_test$observed[5],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[6],2)`) and pools ($\sf{n_{cc}}$ = `r round(chi_test$observed[3],2)`, $\sf{n_{OG}}$ = `r round(chi_test$observed[4],2)`) (See Table 1). There is not evidence to suggest that there is a significant effect of area sections, old growth and clear cut, on channel classification, cascade, pool, and side channel ($\chi$^2^(`r chi_test$parameter`) = `r round(chi_test$statistic,4)`, *p* = `r round(chi_test$p.value, 2)`).
 
 ### Summary  
 
